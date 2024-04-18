@@ -7,7 +7,7 @@ Algoritmo Sistema_Control_Acceso
 	Definir Laboratorios Como Coleccion de cadena
 	
 	Repetir
-		Escribir "Sistema de Control de Acceso"
+		Escribir "Sistema de Control de Accesoo"
 		Escribir "1. Registrar Usuario"
 		Escribir "2. Registrar Entrada/Salida"
 		Escribir "3. Gestionar Aulas"
