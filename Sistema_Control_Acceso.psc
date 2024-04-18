@@ -1,3 +1,4 @@
+
 Algoritmo Sistema_Control_Acceso
 	
 //	Definir Usuarios Como cadena de registro de (cedula, nombre)
@@ -68,4 +69,5 @@ Fin SubAlgoritmo
 SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios)
 	// solicitud de equipos y laboratorios aquí
 Fin SubAlgoritmo
+
 
