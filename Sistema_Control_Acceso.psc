@@ -3,6 +3,20 @@ Algoritmo Sistema_Control_Acceso
 	
 	Definir i, cont, op como entero; /// Cont y Op no se han utilizado hasta el momento
 	Dimension cedula[100],nombre[100],resgistro_vacio[100]
+	Dimensión Equipos[6], Laboratorios[6]
+	Equipos[1] = "Proyector #1"
+	Equipos[2] = "Proyector #2"
+	Equipos[3] = "Proyector #3"
+	Equipos[4] = "Proyector #4"
+	Equipos[5] = "Proyector #5"
+	Equipos[6] = "Proyector #6"
+	
+	Laboratorios[1] = "Laboratorio Móvil #1"
+	Laboratorios[2] = "Laboratorio Móvil #2"
+	Laboratorios[3] = "Laboratorio Móvil #3"
+	Laboratorios[4] = "Laboratorio Móvil #4"
+	Laboratorios[5] = "Laboratorio Móvil #5"
+	Laboratorios[6] = "Laboratorio Móvil #6"
 	
 	cont = 0;
 	i=0
@@ -46,7 +60,11 @@ Algoritmo Sistema_Control_Acceso
 				
 				
 			4:
-				Solicitar_Equipo_Laboratorio(Equipos, Laboratorios)
+				Escribir "Seleccione una opción: "
+				Escribir "1. Solicitar equipo"
+				Escribir "2. Solicitar laboratorio móvil"
+				Leer seleccion
+				Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, seleccion)
 			5:
 				Escribir "Gracias por usar el sistema"
 			De Otro Modo:
@@ -66,13 +84,13 @@ SubAlgoritmo nombre <- Registrar_Usuario(cedula, nombre, i)
 	
 	Repetir
 		Repetir
-		Escribir "Ingresa los datos del usuario ", i, ":"
-		Escribir "Ingrese c dula:"
-		Leer cedula[i]
-		Escribir "Ingrese nombre:"
-		Leer nombre[i]
-		
-		/// Verificamos si los campos estan vacios
+			Escribir "Ingresa los datos del usuario ", i, ":"
+			Escribir "Ingrese c dula:"
+			Leer cedula[i]
+			Escribir "Ingrese nombre:"
+			Leer nombre[i]
+			
+			/// Verificamos si los campos estan vacios
 			Si cedula[i] == "" O nombre[i] == "" Entonces
 				Escribir "Error: los campos no pueden estar vacios, intente nuevamente."
 				Esperar 2 Segundos
@@ -186,6 +204,73 @@ SubAlgoritmo Mostrar_Horario_Aulas(aula)
 Fin SubAlgoritmo
 
 
-SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios)
-	// solicitud de equipos y laboratorios aqu 
+SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, seleccion)
+	
+	Segun seleccion Hacer
+		1:
+			Escribir "Lista de equipos disponibles:"
+			i = 1
+			Repetir
+				Si Equipos[i] == "" Entonces
+					
+				FinSi
+				Escribir i, ". ", Equipos[i]
+				i = i + 1
+			Hasta Que i > 6
+			
+			Escribir "Seleccione el número de equipo que desea solicitar:"
+			Leer seleccion
+			Si seleccion > 0 y seleccion < i Entonces
+				encontrado = Falso
+				i = 1
+				Repetir
+					Si Equipos[i] == "" Entonces
+						
+					FinSi
+					Si seleccion == i Entonces
+						equipo = Equipos[i]
+						encontrado = Verdadero
+					FinSi
+					i = i + 1
+				Hasta Que i > 6
+				
+				Si encontrado == Verdadero Entonces
+					Escribir "Ha solicitado el equipo: ", equipo
+					Esperar 2 Segundos
+				FinSi
+			FinSi
+			
+		2:
+			Escribir "Lista de laboratorios móviles disponibles:"
+			i = 1
+			Repetir
+				Si Laboratorios[i] == "" Entonces
+					
+				FinSi
+				Escribir i, ". ", Laboratorios[i]
+				i = i + 1
+			Hasta Que i > 6
+			
+			Escribir "Seleccione el número de laboratorio móvil que desea solicitar:"
+			Leer seleccion
+			Si seleccion > 0 y seleccion < i Entonces
+				encontrado = Falso
+				i = 1
+				Repetir
+					Si Laboratorios[i] == "" Entonces
+						
+					FinSi
+					Si seleccion == i Entonces
+						laboratorio = Laboratorios[i]
+						encontrado = Verdadero
+					FinSi
+					i = i + 1
+				Hasta Que i > 6
+				
+				Si encontrado == Verdadero Entonces
+					Escribir "Ha solicitado el laboratorio móvil: ", laboratorio
+					Esperar 2 Segundos
+				FinSi
+			FinSi
+	FinSegun
 Fin SubAlgoritmo
