@@ -1,17 +1,11 @@
 
 Algoritmo Sistema_Control_Acceso
 	
-//	Definir Usuarios Como cadena de registro de (cedula, nombre)
-//	Definir Registros Como Coleccion de registro de (cedula, entrada, salida)
-//	Definir Aulas Como Coleccion de cadena
-//	Definir Equipos Como Coleccion de cadena
-//	Definir Laboratorios Como Coleccion de cadena
 	Definir i, cont, op como entero; /// Cont y Op no se han utilizado hasta el momento
 	Dimension cedula[100],nombre[100],resgistro_vacio[100]
+	
 	cont = 0;
 	i=0
-	
-	
 	
 	Repetir
 		Borrar Pantalla /// Doble borrar pantallas en el menu para mejor legibilidad
@@ -40,7 +34,17 @@ Algoritmo Sistema_Control_Acceso
 					/// Se guarda en el arreglo con la iteracion correspondiente al usuario, esto con el fin de validar a todos por separado
 				FinSi
 			3:
-				Gestionar_Aulas(Aulas)
+				//Gestionar_Aulas(Aulas)
+				/// se pide la aula que desea verle el horario xd
+				Imprimir "Digite una opcion"
+				Escribir "1. Aula 1"
+				Escribir "2. Aula 2"
+				Escribir "3. Aula 3"
+				leer aula
+				Mostrar_Horario_Aulas(aula)
+				Esperar Tecla 
+				
+				
 			4:
 				Solicitar_Equipo_Laboratorio(Equipos, Laboratorios)
 			5:
@@ -148,10 +152,38 @@ FinSubAlgoritmo
 
 
 
-SubAlgoritmo Gestionar_Aulas(Aulas)
-	// gesti n de aulas aqu 
-Fin SubAlgoritmo
 
+//Mostrar horarios de las aulas de forma quemada
+SubAlgoritmo Mostrar_Horario_Aulas(aula)
+	Escribir "Horario de Aulas Disponibles"
+	Si aula == 1 Entonces
+		Escribir "Lunes: 8:00 AM - 12:00 PM"
+		Escribir "Martes: 1:00 PM - 5:00 PM"
+		Escribir "Miércoles: 10:00 AM - 2:00 PM"
+		Escribir "Jueves: 3:00 PM - 7:00 PM"
+		Escribir "Viernes: 9:00 AM - 1:00 PM"
+	FinSi
+	
+	Si aula == 2 Entonces
+		Escribir "Lunes: 1:00 PM - 5:00 PM"
+		Escribir "Martes: 8:00 AM - 12:00 PM"
+		Escribir "Miércoles: 3:00 PM - 7:00 PM"
+		Escribir "Jueves: 1:00 PM - 5:00 PM"
+		Escribir "Viernes: 11:00 AM - 3:00 PM"
+	FinSi
+	
+	Si aula == 3 Entonces
+		Escribir "Lunes: 10:00 AM - 2:00 PM"
+		Escribir "Martes: 3:00 PM - 7:00 PM"
+		Escribir "Miércoles: 1:00 PM - 5:00 PM"
+		Escribir "Jueves: 10:00 AM - 2:00 PM"
+		Escribir "Viernes: 1:00 PM - 5:00 PM"
+	FinSi
+	
+	Escribir "Sábado: Cerrado"
+	Escribir "Domingo: Cerrado"
+	
+Fin SubAlgoritmo
 
 
 SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios)
