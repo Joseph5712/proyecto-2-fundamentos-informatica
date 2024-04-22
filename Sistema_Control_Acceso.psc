@@ -1,9 +1,12 @@
 
 Algoritmo Sistema_Control_Acceso
 	
-	Definir i, cont, op como entero; /// Cont y Op no se han utilizado hasta el momento
-	Dimension cedula[100],nombre[100],resgistro_vacio[100]
-	Dimensión Equipos[6], Laboratorios[6]
+	// Definir variables
+	Definir i, cont, opcion como entero;
+	Dimension cedula[100], nombre[100], registro_vacio[100]
+	Dimension Equipos[6], Laboratorios[6], Solicitudes[12]
+	
+	// Inicializar nombres de equipos y laboratorios móviles
 	Equipos[1] = "Proyector #1"
 	Equipos[2] = "Proyector #2"
 	Equipos[3] = "Proyector #3"
@@ -19,10 +22,11 @@ Algoritmo Sistema_Control_Acceso
 	Laboratorios[6] = "Laboratorio Móvil #6"
 	
 	cont = 0;
-	i=0
+	i = 0
 	
+	// Iniciar el bucle principal del menú
 	Repetir
-		Borrar Pantalla /// Doble borrar pantallas en el menu para mejor legibilidad
+		Borrar Pantalla
 		Escribir "Sistema de Control de Acceso"
 		Escribir "1. Registrar Usuario"
 		Escribir "2. Registrar Entrada/Salida"
@@ -34,41 +38,39 @@ Algoritmo Sistema_Control_Acceso
 		
 		Segun opcion Hacer
 			1:
-				i=i+1
-				/// Se asigna para recoger su retorno y utilizarlo proximamente
+				i = i + 1
 				llamado = Registrar_Usuario(cedula, nombre, i)
-				resgistro_vacio[i] <- "" /// Una vez que se crea un nuevo usuario, su registro de entrada sera vacio 
+				registro_vacio[i] <- ""
 			2:	
-				Si nombre[1] == "" Entonces /// Determina si hay un usuario existente, si no hay, se debe crear uno para usar esta opcion
-					Escribir "Debe de registrarse como usuario para utilizar esta opcion."
+				Si nombre[1] == "" Entonces
+					Escribir "Debe registrarse como usuario para utilizar esta opción."
 					Esperar 2 Segundos
 				SiNo
-					resgistro_vacio[i] <- Registrar_Entrada_Salida(resgistro_vacio[i],nombre[i])
-					/// Se envian 2 argumentos, el primero se utilizara para validar la existencia de un registro, el segundo imprime el nombre del usuario
-					/// Se guarda en el arreglo con la iteracion correspondiente al usuario, esto con el fin de validar a todos por separado
+					registro_vacio[i] <- Registrar_Entrada_Salida(registro_vacio[i], nombre[i])
 				FinSi
 			3:
-				//Gestionar_Aulas(Aulas)
-				/// se pide la aula que desea verle el horario xd
-				Imprimir "Digite una opcion"
+				Imprimir "Digite una opción"
 				Escribir "1. Aula 1"
 				Escribir "2. Aula 2"
 				Escribir "3. Aula 3"
-				leer aula
+				Leer aula
 				Mostrar_Horario_Aulas(aula)
 				Esperar Tecla 
-				
-				
 			4:
 				Escribir "Seleccione una opción: "
 				Escribir "1. Solicitar equipo"
 				Escribir "2. Solicitar laboratorio móvil"
 				Leer seleccion
-				Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, seleccion)
+				Si i > 0 y i <= 100 Entonces
+					Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, Solicitudes, seleccion, nombre[i])
+				SiNo
+					Escribir "Error: No hay usuarios registrados. Por favor, registre al menos un usuario antes de solicitar un equipo o laboratorio móvil."
+					Esperar 2 Segundos
+				FinSi
 			5:
 				Escribir "Gracias por usar el sistema"
 			De Otro Modo:
-				Escribir "Opci n inv lida, intente de nuevo."
+				Escribir "Opción inválida, intente de nuevo."
 				Esperar 2 Segundos
 		Fin Segun
 	Hasta Que opcion == 5
@@ -204,73 +206,72 @@ SubAlgoritmo Mostrar_Horario_Aulas(aula)
 Fin SubAlgoritmo
 
 
-SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, seleccion)
-	
-	Segun seleccion Hacer
-		1:
-			Escribir "Lista de equipos disponibles:"
-			i = 1
-			Repetir
-				Si Equipos[i] == "" Entonces
-					
-				FinSi
-				Escribir i, ". ", Equipos[i]
-				i = i + 1
-			Hasta Que i > 6
-			
-			Escribir "Seleccione el número de equipo que desea solicitar:"
-			Leer seleccion
-			Si seleccion > 0 y seleccion < i Entonces
-				encontrado = Falso
-				i = 1
-				Repetir
-					Si Equipos[i] == "" Entonces
-						
-					FinSi
-					Si seleccion == i Entonces
-						equipo = Equipos[i]
-						encontrado = Verdadero
-					FinSi
-					i = i + 1
-				Hasta Que i > 6
-				
-				Si encontrado == Verdadero Entonces
-					Escribir "Ha solicitado el equipo: ", equipo
-					Esperar 2 Segundos
-				FinSi
-			FinSi
-			
-		2:
-			Escribir "Lista de laboratorios móviles disponibles:"
-			i = 1
-			Repetir
-				Si Laboratorios[i] == "" Entonces
-					
-				FinSi
-				Escribir i, ". ", Laboratorios[i]
-				i = i + 1
-			Hasta Que i > 6
-			
-			Escribir "Seleccione el número de laboratorio móvil que desea solicitar:"
-			Leer seleccion
-			Si seleccion > 0 y seleccion < i Entonces
-				encontrado = Falso
-				i = 1
-				Repetir
-					Si Laboratorios[i] == "" Entonces
-						
-					FinSi
-					Si seleccion == i Entonces
-						laboratorio = Laboratorios[i]
-						encontrado = Verdadero
-					FinSi
-					i = i + 1
-				Hasta Que i > 6
-				
-				Si encontrado == Verdadero Entonces
-					Escribir "Ha solicitado el laboratorio móvil: ", laboratorio
-					Esperar 2 Segundos
-				FinSi
-			FinSi
-	FinSegun
+SubAlgoritmo Solicitar_Equipo_Laboratorio(Equipos, Laboratorios, Solicitudes, seleccion, nombre)
+    Segun seleccion Hacer
+        1:
+            // Mostrar equipos disponibles
+            Escribir "Lista de equipos disponibles:"
+            i = 1
+            Repetir
+                Si Equipos[i] == "" Entonces
+                    i = i + 1
+                SiNo
+                    Si Solicitudes[i] == "" Entonces
+                        Escribir i, ". ", Equipos[i]
+                    SiNo
+                        Escribir i, ". Ocupado por ", Solicitudes[i]
+                    FinSi
+                    i = i + 1
+                FinSi
+            Hasta Que i > 6
+            
+            // Solicitar selección de equipo
+            Escribir "Seleccione el número de equipo que desea solicitar:"
+            Leer seleccion
+            Si seleccion > 0 y seleccion < i Entonces
+                Si Solicitudes[seleccion] == "" Entonces
+                    Escribir "Ha solicitado el equipo: ", Equipos[seleccion], " (solicitado por ", nombre, ")"
+                    // Almacenar la solicitud junto con el nombre del usuario
+                    Solicitudes[seleccion] <- nombre
+                    Esperar 2 Segundos
+                Sino
+                    Escribir "Error: Este equipo ya está ocupado por ", Solicitudes[seleccion]
+                FinSi
+            FinSi
+        2:
+            // Mostrar laboratorios móviles disponibles
+            Escribir "Lista de laboratorios móviles disponibles:"
+            i = 1 // Reiniciar i antes de iterar sobre la lista de laboratorios móviles
+            Repetir
+                Si Laboratorios[i] == "" Entonces
+                    i = i + 1
+                SiNo
+                    Si Solicitudes[i + 6] == "" Entonces // Aquí sumamos 6 para acceder al arreglo de laboratorios móviles en el índice correspondiente
+                        Escribir i, ". ", Laboratorios[i]
+                    SiNo
+                        Escribir i, ". Ocupado por ", Solicitudes[i + 6] // También sumamos 6 aquí para acceder al arreglo de laboratorios móviles en el índice correspondiente
+                    FinSi
+                    i = i + 1
+                FinSi
+            Hasta Que i > 6
+            
+            // Solicitar selección de laboratorio móvil
+            Escribir "Seleccione el número de laboratorio móvil que desea solicitar:"
+            Leer seleccion
+            Si seleccion > 0 y seleccion < i Entonces
+                Si Solicitudes[seleccion + 6] == "" Entonces // Sumamos 6 aquí para acceder al arreglo de laboratorios móviles en el índice correspondiente
+                    Escribir "Ha solicitado el laboratorio móvil: ", Laboratorios[seleccion], " (solicitado por ", nombre, ")"
+                    // Almacenar la solicitud junto con el nombre del usuario
+                    Solicitudes[seleccion + 6] <- nombre // Sumamos 6 aquí para acceder al arreglo de laboratorios móviles en el índice correspondiente
+                    Esperar 2 Segundos
+                Sino
+                    Escribir "Error: Este laboratorio móvil ya está ocupado por ", Solicitudes[seleccion + 6]
+                FinSi
+            FinSi
+    FinSegun
 Fin SubAlgoritmo
+
+
+
+
+
